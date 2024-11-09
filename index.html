@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex - Application Bancaire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            color: #003366;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 51, 102, 0.3);
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        header {
+            background-color: #00509e;
+            color: #ffffff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-icon, .close-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .solde {
+            text-align: center;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #e0efff;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .btn-group button {
+            background-color: #0073e6;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-group button i {
+            margin-right: 5px;
+        }
+
+        .carte-virtuelle {
+            padding: 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #cce0ff;
+        }
+
+        .carte-virtuelle button {
+            background-color: #003366;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .banniere {
+            padding: 15px;
+            font-size: 14px;
+            color: #003366;
+            background-color: #e0f3ff;
+            text-align: center;
+        }
+
+        .historique {
+            padding: 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #cce0ff;
+        }
+
+        .historique h3 {
+            font-size: 16px;
+            color: #00509e;
+            margin-bottom: 10px;
+        }
+
+        .historique .transaction {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background-color: #00509e;
+            color: #ffffff;
+        }
+
+        footer button {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        footer button i {
+            font-size: 20px;
+        }
+
+        /* Menu latéral */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #00509e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: right 0.3s;
+        }
+
+        #sidebar.open {
+            right: 0;
+        }
+
+        #sidebar .close-icon {
+            align-self: flex-end;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #sidebar ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        #sidebar ul li {
+            padding: 10px 0;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- En-tête -->
+    <header>
+        <span>Flex - Banque</span>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+    </header>
+
+    <!-- Solde et boutons d'action -->
+    <div class="solde">Solde : 5000 €</div>
+    <div class="btn-group">
+        <button><i>💵</i> Retrait</button>
+        <button><i>💸</i> Transfert</button>
+        <button><i>⋮</i> Plus</button>
+    </div>
+
+    <!-- Carte virtuelle -->
+    <div class="carte-virtuelle">
+        <h3>Votre carte bancaire virtuelle</h3>
+        <p>**** **** **** 1234</p>
+        <button onclick="purchaseCard()">Acheter une carte</button>
+    </div>
+
+    <!-- Bannières défilantes -->
+    <div class="banniere">Promotion : Gagnez des récompenses avec chaque transfert !</div>
+    <div class="banniere">Nouvelle fonctionnalité : Transfert instantané en 1 clic !</div>
+
+    <!-- Historique des transactions -->
+    <div class="historique">
+        <h3>Historique des transactions</h3>
+        <div class="transaction">
+            <span>Retrait</span>
+            <span>-500 €</span>
+        </div>
+        <div class="transaction">
+            <span>Transfert reçu</span>
+            <span>+1500 €</span>
+        </div>
+        <div class="transaction">
+            <span>Paiement carte</span>
+            <span>-200 €</span>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+        <button onclick="alert('Accueil')"><i>🏠</i>Accueil</button>
+        <button onclick="alert('Traduction')"><i>🌐</i>Traduction</button>
+        <button onclick="alert('Plus d\'options')"><i>⋮</i>Plus</button>
+        <button onclick="alert('Support')"><i>📞</i>Support</button>
+    </footer>
+</div>
+
+<!-- Menu latéral -->
+<div id="sidebar">
+    <span class="close-icon" onclick="toggleMenu()">✖</span>
+    <ul>
+        <li onclick="alert('Accueil')">Accueil</li>
+        <li onclick="alert('Profil')">Profil</li>
+        <li onclick="alert('Transactions')">Transactions</li>
+        <li onclick="alert('Paramètres')">Paramètres</li>
+    </ul>
+</div>
+
+<script>
+    // Fonction pour ouvrir/fermer le menu
+    function toggleMenu() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+    }
+
+    function purchaseCard() {
+        alert("Fonctionnalité pour acheter la carte.");
+    }
+</script>
+
+</body>
+</html>
